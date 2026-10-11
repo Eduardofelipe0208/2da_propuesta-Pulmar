@@ -610,11 +610,11 @@
             </div>
         </section>
 
-        <!-- 7. SECCIÓN DE CONTACTO Y COTIZACIÓN (Fiel al cierre blanco de la referencia + Envío en 2 pestañas a WhatsApp y Correo)[cite: 19, 20, 27] -->
+        <!-- 7. SECCIÓN DE CONTACTO Y COTIZACIÓN -->
         <section class="contact-section" id="contacto">
             <div class="container">
                 <div class="contact-grid-layout">
-                    <!-- Columna Izquierda: Llamado a la acción, teléfono, correo, columnas informativas y tarjeta bicolor[cite: 19, 20] -->
+                    <!-- Columna Izquierda: Llamado a la acción, teléfono, correo, columnas informativas y tarjeta bicolor -->
                     <div class="contact-info-column">
                         <div class="section-marker"></div>
                         <h2 class="contact-heading">
@@ -622,9 +622,9 @@
                             No espere más, <span class="text-red-accent">hablemos.</span>
                         </h2>
 
-                        <!-- Barra de contacto directo idéntica a la referencia[cite: 19] -->
+                        <!-- Barra de contacto directo -->
                         <div class="direct-contact-bar">
-                            <a href="https://wa.me/584120936783" target="_blank" rel="noopener noreferrer" class="contact-direct-item" aria-label="Contactar por teléfono o WhatsApp al 0414-0492563"> 
+                            <a href="https://wa.me/584140492563" target="_blank" rel="noopener noreferrer" class="contact-direct-item" aria-label="Contactar por teléfono o WhatsApp al 0414-0492563">
                                 <span class="contact-circle-icon" aria-hidden="true">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
@@ -644,7 +644,7 @@
                             </a>
                         </div>
 
-                        <!-- Columnas de resumen corporativo estilo referencia[cite: 19, 20, 22, 23] -->
+                        <!-- Columnas de resumen corporativo -->
                         <div class="office-columns-grid">
                             <div class="office-col">
                                 <h3 class="office-col-title">Empresa</h3>
@@ -672,7 +672,7 @@
                             </div>
                         </div>
 
-                        <!-- Bloque inferior bicolor gris/rojo idéntico al pie de la imagen de referencia[cite: 19, 20, 27] -->
+                        <!-- Bloque inferior bicolor gris/rojo -->
                         <div class="reference-bottom-card">
                             <div class="ref-card-left">
                                 <span>J-40651947-2</span>
@@ -684,14 +684,13 @@
                         </div>
                     </div>
 
-                    <!-- Archivo: index.html (Sección de la columna derecha del formulario) | Acción: REEMPLAZAR BLOQUE -->
-                    <!-- Columna Derecha: Formulario con vista previa y apertura directa en pestaña de Correo / WhatsApp -->
+                    <!-- Columna Derecha: Formulario con vista previa y botón de Enviar Correo / WhatsApp -->
                     <div class="contact-form-column">
                         <div class="quote-form-card">
                             <span class="form-card-eyebrow">SOLICITUD DE COTIZACIÓN B2B</span>
                             <h3 class="form-card-title">Coordine su Servicio de Transporte o Alquiler</h3>
                             <p class="form-card-desc">
-                                Complete los datos de su requerimiento y elija el canal de su preferencia: envíe su mensaje directo a <strong>WhatsApp (0414-0492563)</strong> o genere el mensaje para abrirlo y enviarlo desde su correo a <strong>Pulmarconstruccionesca@gmail.com</strong>.
+                                Complete los datos de su requerimiento y elija el canal de su preferencia: envíe su mensaje directo a <strong>WhatsApp (0414-0492563)</strong> o genere el mensaje para enviarlo desde su correo a <strong>Pulmarconstruccionesca@gmail.com</strong>.
                             </p>
 
                             <form id="quote-builder-form" class="quote-form" novalidate>
@@ -764,30 +763,23 @@
                                 </div>
                             </form>
 
-                            <!-- Panel de Vista Previa del Mensaje y Botón que abre el Correo en otra pestaña -->
+                            <!-- Panel de Vista Previa del Mensaje y Botón de Enviar Correo -->
                             <div id="quote-output-panel" class="quote-output-panel" hidden aria-live="polite">
                                 <div class="output-top-bar">
                                     <strong>MENSAJE QUE SE ENVIARÁ</strong>
-                                    <span class="output-status-pill" id="output-status-pill">LISTO PARA ABRIR</span>
+                                    <span class="output-status-pill" id="output-status-pill">LISTO PARA ENVIAR</span>
                                 </div>
 
                                 <pre id="quote-summary-text" class="quote-summary-box"></pre>
 
-                                <div class="output-buttons-grid" style="display: flex; flex-direction: column; gap: 0.75rem;">
-                                    <!-- Este enlace abre en una pestaña nueva la ventana de redacción de Gmail con todo el mensaje cargado -->
-                                    <a id="btn-open-email-tab" href="#" target="_blank" rel="noopener noreferrer" class="btn-submit-quote" style="background-color: #163F6B; width: 100%; text-align: center; text-decoration: none;">
-                                        <span>Abrir mi Correo con este Mensaje</span>
-                                        <span aria-hidden="true">&rarr;</span>
+                                <div class="output-buttons-grid" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                    <a id="btn-open-mailto-app" href="#" class="btn-submit-quote" style="flex: 1; background-color: #163F6B; text-align: center; text-decoration: none;">
+                                        <span>Enviar Correo</span>
+                                        <span aria-hidden="true">&#9993;</span>
                                     </a>
-
-                                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                                        <a id="btn-open-mailto-app" href="#" class="btn-panel-outline" style="flex: 1; text-align: center; text-decoration: none;">
-                                            Usar App de Correo (Outlook/Móvil)
-                                        </a>
-                                        <button type="button" id="btn-copy-quote" class="btn-panel-outline" style="flex: 1;">
-                                            Copiar Texto
-                                        </button>
-                                    </div>
+                                    <button type="button" id="btn-copy-quote" class="btn-panel-outline" style="flex: 1;">
+                                        Copiar Texto
+                                    </button>
                                 </div>
 
                                 <p id="copy-feedback" class="copy-feedback-text" hidden style="margin-top: 0.85rem; padding: 0.75rem; border-radius: 4px; background-color: rgba(22, 63, 107, 0.08); color: #163F6B; font-weight: 600;"></p>

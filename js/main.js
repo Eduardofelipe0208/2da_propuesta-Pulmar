@@ -90,11 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. Lógica del Formulario: Vista previa del mensaje + apertura del correo en otra pestaña listo para enviar
+    // 5. Lógica del Formulario: Vista previa del mensaje + Botón "Enviar Correo"
     const quoteForm = document.getElementById('quote-builder-form');
     const btnWhatsapp = document.getElementById('btn-submit-whatsapp');
     const btnPreviewEmail = document.getElementById('btn-preview-email');
-    const btnOpenEmailTab = document.getElementById('btn-open-email-tab');
     const btnOpenMailtoApp = document.getElementById('btn-open-mailto-app');
     const errorMsg = document.getElementById('form-error-msg');
     const outputPanel = document.getElementById('quote-output-panel');
@@ -103,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyBtn = document.getElementById('btn-copy-quote');
     const copyFeedback = document.getElementById('copy-feedback');
 
-    // Función que valida los campos y construye el mensaje y las URLs de correo y WhatsApp
     const buildSummaryAndValidate = () => {
         const companyName = document.getElementById('company-name').value.trim();
         const contactPerson = document.getElementById('contact-person').value.trim();
@@ -128,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const emailSubject = `Solicitud de Cotización Corporativa - ${companyName} | Pulmar Construcciones, C.A.`;
 
-        // Mensaje que aparece en la vista previa y se carga dentro del correo[cite: 2, 5, 29, 32]
         const summaryDocument = [
             'SOLICITUD DE COTIZACIÓN CORPORATIVA',
             'PARA: PULMAR CONSTRUCCIONES, C.A. (RIF: J-40651947-2)',
@@ -150,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `Destinatario: ${CONTACT_CONFIG.email} | Teléfono: ${CONTACT_CONFIG.displayPhone}`
         ].join('\n');
 
-        // Mensaje optimizado para WhatsApp[cite: 2, 5, 29, 32]
         const whatsappMessage = [
             '*SOLICITUD DE COTIZACIÓN - PULMAR CONSTRUCCIONES, C.A.*',
             `Fecha: ${currentDate}`,
@@ -170,17 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ].join('\n');
 
         const whatsappUrl = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-
-        // URL que abre otra pestaña directamente en el redactor de Gmail con destinatario, asunto y cuerpo precargados
-        const gmailComposeTabUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_CONFIG.email)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(summaryDocument)}`;
-
-        // URL mailto para quienes usan aplicación de correo en celular o PC
         const mailtoAppUrl = `mailto:${CONTACT_CONFIG.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(summaryDocument)}`;
 
         return {
             summaryDocument,
             whatsappUrl,
-            gmailComposeTabUrl,
             mailtoAppUrl
         };
     };
@@ -192,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!data) return;
 
             if (summaryPre) summaryPre.textContent = data.summaryDocument;
-            if (btnOpenEmailTab) btnOpenEmailTab.href = data.gmailComposeTabUrl;
             if (btnOpenMailtoApp) btnOpenMailtoApp.href = data.mailtoAppUrl;
 
             if (statusPill) {
@@ -210,14 +199,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // BOTÓN 2: Al pulsar "Enviar por Correo", muestra allí mismo el mensaje que se enviará y prepara el botón que abre la pestaña del correo
+    // BOTÓN 2: Al pulsar "Enviar por Correo", muestra el mensaje y habilita el botón "Enviar Correo"
     if (btnPreviewEmail) {
         btnPreviewEmail.addEventListener('click', () => {
             const data = buildSummaryAndValidate();
             if (!data) return;
 
             if (summaryPre) summaryPre.textContent = data.summaryDocument;
-            if (btnOpenEmailTab) btnOpenEmailTab.href = data.gmailComposeTabUrl;
             if (btnOpenMailtoApp) btnOpenMailtoApp.href = data.mailtoAppUrl;
 
             if (statusPill) {
@@ -227,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (copyFeedback) {
                 copyFeedback.hidden = false;
-                copyFeedback.textContent = `Revise el mensaje arriba y haga clic en "Abrir mi Correo con este Mensaje" para abrir la pestaña de su correo y enviarlo a ${CONTACT_CONFIG.email}.`;
+                copyFeedback.textContent = `Revise el mensaje arriba y presione "Enviar Correo" para abrir su aplicación de correo con todos los datos cargados para ${CONTACT_CONFIG.email}.`;
             }
 
             if (outputPanel) {
@@ -237,21 +225,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cuando el usuario hace clic en "Abrir mi Correo con este Mensaje"
-    if (btnOpenEmailTab) {
-        btnOpenEmailTab.addEventListener('click', () => {
+    // Cuando el usuario hace clic en el botón "Enviar Correo"
+    if (btnOpenMailtoApp) {
+        btnOpenMailtoApp.addEventListener('click', () => {
             if (statusPill) {
-                statusPill.textContent = 'CORREO ABIERTO EN OTRA PESTAÑA';
+                statusPill.textContent = 'ABRIENDO CORREO';
                 statusPill.style.backgroundColor = '#8D1A1A';
             }
             if (copyFeedback) {
                 copyFeedback.hidden = false;
-                copyFeedback.textContent = `¡Listo! Se abrió su correo en una nueva pestaña con el mensaje cargado para ${CONTACT_CONFIG.email}. Solo presione "Enviar" dentro de su correo.`;
+                copyFeedback.textContent = `¡Listo! Se abrió su aplicación de correo con el mensaje cargado para ${CONTACT_CONFIG.email}. Solo presione "Enviar" en su correo.`;
             }
         });
     }
 
-    // Evitar recargas si presionan Enter dentro de un campo
     if (quoteForm) {
         quoteForm.addEventListener('submit', (event) => {
             event.preventDefault();
