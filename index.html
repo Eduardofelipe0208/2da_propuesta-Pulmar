@@ -685,21 +685,16 @@
                     </div>
 
                     <!-- Archivo: index.html (Sección de la columna derecha del formulario) | Acción: REEMPLAZAR BLOQUE -->
-                    <!-- Columna Derecha: Formulario de Solicitud de Cotización con 2 botones independientes (WhatsApp y Correo) -->
+                    <!-- Columna Derecha: Formulario con vista previa y apertura directa en pestaña de Correo / WhatsApp -->
                     <div class="contact-form-column">
                         <div class="quote-form-card">
                             <span class="form-card-eyebrow">SOLICITUD DE COTIZACIÓN B2B</span>
                             <h3 class="form-card-title">Coordine su Servicio de Transporte o Alquiler</h3>
                             <p class="form-card-desc">
-                                Complete los datos de su requerimiento y elija el canal de su preferencia: envíe su mensaje directo a <strong>WhatsApp (0414-0492563)</strong> o remita su solicitud formal al correo <strong>Pulmarconstruccionesca@gmail.com</strong>.
+                                Complete los datos de su requerimiento y elija el canal de su preferencia: envíe su mensaje directo a <strong>WhatsApp (0414-0492563)</strong> o genere el mensaje para abrirlo y enviarlo desde su correo a <strong>Pulmarconstruccionesca@gmail.com</strong>.
                             </p>
 
-                            <form id="quote-builder-form" class="quote-form" action="https://formsubmit.co/Pulmarconstruccionesca@gmail.com" method="POST" target="_blank" novalidate>
-                                <!-- Campos de configuración para recepción limpia en el correo Pulmarconstruccionesca@gmail.com -->
-                                <input type="hidden" name="_subject" id="hidden-email-subject" value="Nueva Solicitud de Cotización - Pulmar Construcciones, C.A.">
-                                <input type="hidden" name="_template" value="table">
-                                <input type="hidden" name="_captcha" value="false">
-
+                            <form id="quote-builder-form" class="quote-form" novalidate>
                                 <div class="form-row-split">
                                     <div class="form-field">
                                         <label for="company-name">Empresa o Institución *</label>
@@ -753,41 +748,49 @@
                                 </div>
 
                                 <p id="form-error-msg" class="form-error-banner" role="alert" hidden>
-                                    Por favor complete todos los campos obligatorios marcados con (*) antes de enviar.
+                                    Por favor complete todos los campos obligatorios marcados con (*) antes de continuar.
                                 </p>
 
-                                <!-- 2 Botones Independientes: Uno para WhatsApp y otro para Correo -->
+                                <!-- 2 Botones Principales -->
                                 <div class="form-submit-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.85rem;">
                                     <button type="button" id="btn-submit-whatsapp" class="btn-submit-quote" style="background-color: #8D1A1A;">
                                         <span>Enviar por WhatsApp</span>
                                         <span aria-hidden="true">&rarr;</span>
                                     </button>
-                                    <button type="button" id="btn-submit-email" class="btn-submit-quote" style="background-color: #163F6B;">
+                                    <button type="button" id="btn-preview-email" class="btn-submit-quote" style="background-color: #163F6B;">
                                         <span>Enviar por Correo</span>
                                         <span aria-hidden="true">&#9993;</span>
                                     </button>
                                 </div>
                             </form>
 
-                            <!-- Panel de confirmación y botones de acceso directo -->
+                            <!-- Panel de Vista Previa del Mensaje y Botón que abre el Correo en otra pestaña -->
                             <div id="quote-output-panel" class="quote-output-panel" hidden aria-live="polite">
                                 <div class="output-top-bar">
-                                    <strong>SOLICITUD PREPARADA</strong>
-                                    <span class="output-status-pill" id="output-status-pill">LISTO PARA ENVÍO</span>
+                                    <strong>MENSAJE QUE SE ENVIARÁ</strong>
+                                    <span class="output-status-pill" id="output-status-pill">LISTO PARA ABRIR</span>
                                 </div>
+
                                 <pre id="quote-summary-text" class="quote-summary-box"></pre>
-                                <div class="output-buttons-grid">
-                                    <a id="direct-wa-link" href="https://wa.me/584140492563" target="_blank" rel="noopener noreferrer" class="btn-panel-solid">
-                                        Abrir WhatsApp
+
+                                <div class="output-buttons-grid" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                    <!-- Este enlace abre en una pestaña nueva la ventana de redacción de Gmail con todo el mensaje cargado -->
+                                    <a id="btn-open-email-tab" href="#" target="_blank" rel="noopener noreferrer" class="btn-submit-quote" style="background-color: #163F6B; width: 100%; text-align: center; text-decoration: none;">
+                                        <span>Abrir mi Correo con este Mensaje</span>
+                                        <span aria-hidden="true">&rarr;</span>
                                     </a>
-                                    <a id="direct-gmail-link" href="mailto:Pulmarconstruccionesca@gmail.com" target="_blank" rel="noopener noreferrer" class="btn-panel-outline">
-                                        Abrir en Gmail Web
-                                    </a>
-                                    <button type="button" id="btn-copy-quote" class="btn-panel-outline">
-                                        Copiar Texto
-                                    </button>
+
+                                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                        <a id="btn-open-mailto-app" href="#" class="btn-panel-outline" style="flex: 1; text-align: center; text-decoration: none;">
+                                            Usar App de Correo (Outlook/Móvil)
+                                        </a>
+                                        <button type="button" id="btn-copy-quote" class="btn-panel-outline" style="flex: 1;">
+                                            Copiar Texto
+                                        </button>
+                                    </div>
                                 </div>
-                                <p id="copy-feedback" class="copy-feedback-text" hidden></p>
+
+                                <p id="copy-feedback" class="copy-feedback-text" hidden style="margin-top: 0.85rem; padding: 0.75rem; border-radius: 4px; background-color: rgba(22, 63, 107, 0.08); color: #163F6B; font-weight: 600;"></p>
                             </div>
                         </div>
                     </div>

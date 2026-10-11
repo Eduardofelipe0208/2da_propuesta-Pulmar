@@ -1,13 +1,10 @@
 /* Archivo: js/main.js | Acción: REEMPLAZAR */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Configuraciones de contacto corporativo y envío real de correo
     const CONTACT_CONFIG = {
         email: 'Pulmarconstruccionesca@gmail.com',
-        whatsappNumber: '584140492563', // Código internacional +58 (Venezuela) para 0414-0492563
-        displayPhone: '0414-0492563',
-        formSubmitAjaxUrl: 'https://formsubmit.co/ajax/Pulmarconstruccionesca@gmail.com',
-        formSubmitTabUrl: 'https://formsubmit.co/Pulmarconstruccionesca@gmail.com'
+        whatsappNumber: '584140492563',
+        displayPhone: '0414-0492563'
     };
 
     // 1. Año dinámico en el footer
@@ -48,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Filtrado Interactivo de Flota Vehicular (Compatible con tarjetas y pestañas)
+    // 3. Filtrado Interactivo de Flota Vehicular
     const fleetTabs = document.querySelectorAll('.fleet-tab');
     const fleetCards = document.querySelectorAll('.fleet-unit-card, .fleet-card');
 
@@ -93,21 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. Lógica para los 2 Botones Independientes: "Enviar por WhatsApp" y "Enviar por Correo"
+    // 5. Lógica del Formulario: Vista previa del mensaje + apertura del correo en otra pestaña listo para enviar
     const quoteForm = document.getElementById('quote-builder-form');
     const btnWhatsapp = document.getElementById('btn-submit-whatsapp');
-    const btnEmail = document.getElementById('btn-submit-email');
+    const btnPreviewEmail = document.getElementById('btn-preview-email');
+    const btnOpenEmailTab = document.getElementById('btn-open-email-tab');
+    const btnOpenMailtoApp = document.getElementById('btn-open-mailto-app');
     const errorMsg = document.getElementById('form-error-msg');
     const outputPanel = document.getElementById('quote-output-panel');
     const statusPill = document.getElementById('output-status-pill');
     const summaryPre = document.getElementById('quote-summary-text');
     const copyBtn = document.getElementById('btn-copy-quote');
-    const printBtn = document.getElementById('btn-print-quote');
     const copyFeedback = document.getElementById('copy-feedback');
-    const hiddenSubject = document.getElementById('hidden-email-subject');
 
-    // Función que valida el formulario y prepara los textos y enlaces actualizados
-    const prepareQuoteData = () => {
+    // Función que valida los campos y construye el mensaje y las URLs de correo y WhatsApp
+    const buildSummaryAndValidate = () => {
         const companyName = document.getElementById('company-name').value.trim();
         const contactPerson = document.getElementById('contact-person').value.trim();
         const serviceType = document.getElementById('service-type').value;
@@ -130,35 +127,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const emailSubject = `Solicitud de Cotización Corporativa - ${companyName} | Pulmar Construcciones, C.A.`;
-        if (hiddenSubject) {
-            hiddenSubject.value = emailSubject;
-        }
 
+        // Mensaje que aparece en la vista previa y se carga dentro del correo[cite: 2, 5, 29, 32]
         const summaryDocument = [
-            '============================================================',
             'SOLICITUD DE COTIZACIÓN CORPORATIVA',
             'PARA: PULMAR CONSTRUCCIONES, C.A. (RIF: J-40651947-2)',
-            `FECHA DE EMISIÓN: ${currentDate}`,
-            '============================================================',
-            '',
+            `FECHA: ${currentDate}`,
+            '------------------------------------------------------------',
             '1. DATOS DEL SOLICITANTE',
-            `   • Empresa / Institución: ${companyName}`,
-            `   • Contacto / Cargo: ${contactPerson}`,
+            `• Empresa / Institución: ${companyName}`,
+            `• Persona de Contacto: ${contactPerson}`,
             '',
-            '2. REQUERIMIENTO TÉCNICO DE FLOTA Y SERVICIO',
-            `   • Línea de Servicio: ${serviceType}`,
-            `   • Tipo de Unidad: ${vehicleType}`,
-            `   • Modalidad Operativa: ${modalityType}`,
-            `   • Cantidad Estimada: ${unitsCount} unidad(es)`,
+            '2. REQUERIMIENTO DE FLOTA Y SERVICIO',
+            `• Servicio Requerido: ${serviceType}`,
+            `• Tipo de Unidad: ${vehicleType}`,
+            `• Modalidad Operativa: ${modalityType}`,
+            `• Cantidad de Unidades: ${unitsCount} unidad(es)`,
             '',
-            '3. ESPECIFICACIONES DE RUTA Y OPERACIÓN',
-            `   ${operationDetails}`,
-            '',
-            '============================================================',
-            `Atención Comercial: ${CONTACT_CONFIG.displayPhone} | ${CONTACT_CONFIG.email}`,
-            'PULMAR CONSTRUCCIONES, C.A. - Transporte y Alquiler de Vehículos'
+            '3. RUTA, DESTINO Y DETALLES DE LA SOLICITUD',
+            operationDetails,
+            '------------------------------------------------------------',
+            `Destinatario: ${CONTACT_CONFIG.email} | Teléfono: ${CONTACT_CONFIG.displayPhone}`
         ].join('\n');
 
+        // Mensaje optimizado para WhatsApp[cite: 2, 5, 29, 32]
         const whatsappMessage = [
             '*SOLICITUD DE COTIZACIÓN - PULMAR CONSTRUCCIONES, C.A.*',
             `Fecha: ${currentDate}`,
@@ -178,120 +170,93 @@ document.addEventListener('DOMContentLoaded', () => {
         ].join('\n');
 
         const whatsappUrl = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-        const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_CONFIG.email)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(summaryDocument)}`;
 
-        const directWaLink = document.getElementById('direct-wa-link');
-        const directGmailLink = document.getElementById('direct-gmail-link');
-        if (directWaLink) directWaLink.href = whatsappUrl;
-        if (directGmailLink) directGmailLink.href = gmailWebUrl;
+        // URL que abre otra pestaña directamente en el redactor de Gmail con destinatario, asunto y cuerpo precargados
+        const gmailComposeTabUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_CONFIG.email)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(summaryDocument)}`;
 
-        if (summaryPre) summaryPre.textContent = summaryDocument;
-        if (outputPanel) {
-            outputPanel.hidden = false;
-            outputPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        const emailPayload = {
-            _subject: emailSubject,
-            _template: 'table',
-            _captcha: 'false',
-            Empresa_o_Institucion: companyName,
-            Persona_de_Contacto: contactPerson,
-            Servicio_Requerido: serviceType,
-            Tipo_de_Unidad: vehicleType,
-            Modalidad_Operativa: modalityType,
-            Cantidad_de_Unidades: unitsCount,
-            Detalles_de_Operacion: operationDetails,
-            Fecha_de_Solicitud: currentDate
-        };
+        // URL mailto para quienes usan aplicación de correo en celular o PC
+        const mailtoAppUrl = `mailto:${CONTACT_CONFIG.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(summaryDocument)}`;
 
         return {
+            summaryDocument,
             whatsappUrl,
-            gmailWebUrl,
-            emailPayload
+            gmailComposeTabUrl,
+            mailtoAppUrl
         };
-    };
-
-    // Función auxiliar para enviar el correo en una pestaña dedicada mediante FormSubmit POST
-    const submitEmailInNewTab = (fieldsObj) => {
-        const tempForm = document.createElement('form');
-        tempForm.method = 'POST';
-        tempForm.action = CONTACT_CONFIG.formSubmitTabUrl;
-        tempForm.target = '_blank';
-        tempForm.style.display = 'none';
-
-        Object.entries(fieldsObj).forEach(([key, value]) => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = value;
-            tempForm.appendChild(input);
-        });
-
-        document.body.appendChild(tempForm);
-        tempForm.submit();
-        setTimeout(() => {
-            if (document.body.contains(tempForm)) {
-                document.body.removeChild(tempForm);
-            }
-        }, 1000);
     };
 
     // BOTÓN 1: Enviar por WhatsApp
     if (btnWhatsapp) {
         btnWhatsapp.addEventListener('click', () => {
-            const data = prepareQuoteData();
+            const data = buildSummaryAndValidate();
             if (!data) return;
 
-            if (statusPill) statusPill.textContent = 'WHATSAPP ABIERTO';
+            if (summaryPre) summaryPre.textContent = data.summaryDocument;
+            if (btnOpenEmailTab) btnOpenEmailTab.href = data.gmailComposeTabUrl;
+            if (btnOpenMailtoApp) btnOpenMailtoApp.href = data.mailtoAppUrl;
+
+            if (statusPill) {
+                statusPill.textContent = 'WHATSAPP ABIERTO';
+                statusPill.style.backgroundColor = '#8D1A1A';
+            }
+
+            if (outputPanel) outputPanel.hidden = false;
             if (copyFeedback) {
                 copyFeedback.hidden = false;
-                copyFeedback.textContent = `Se ha abierto WhatsApp (${CONTACT_CONFIG.displayPhone}) con su solicitud lista para enviar.`;
+                copyFeedback.textContent = `Se ha abierto WhatsApp (${CONTACT_CONFIG.displayPhone}) en otra pestaña con su mensaje listo.`;
             }
 
             window.open(data.whatsappUrl, '_blank', 'noopener,noreferrer');
         });
     }
 
-    // BOTÓN 2: Enviar por Correo
-    if (btnEmail) {
-        btnEmail.addEventListener('click', async () => {
-            const data = prepareQuoteData();
+    // BOTÓN 2: Al pulsar "Enviar por Correo", muestra allí mismo el mensaje que se enviará y prepara el botón que abre la pestaña del correo
+    if (btnPreviewEmail) {
+        btnPreviewEmail.addEventListener('click', () => {
+            const data = buildSummaryAndValidate();
             if (!data) return;
 
-            if (statusPill) statusPill.textContent = 'CORREO ENVIADO';
-            if (copyFeedback) {
-                copyFeedback.hidden = false;
-                copyFeedback.textContent = `Enviando solicitud al correo ${CONTACT_CONFIG.email}...`;
+            if (summaryPre) summaryPre.textContent = data.summaryDocument;
+            if (btnOpenEmailTab) btnOpenEmailTab.href = data.gmailComposeTabUrl;
+            if (btnOpenMailtoApp) btnOpenMailtoApp.href = data.mailtoAppUrl;
+
+            if (statusPill) {
+                statusPill.textContent = 'VERIFIQUE SU MENSAJE';
+                statusPill.style.backgroundColor = '#163F6B';
             }
 
-            // Abre la pestaña de envío de correo a Pulmarconstruccionesca@gmail.com
-            submitEmailInNewTab(data.emailPayload);
+            if (copyFeedback) {
+                copyFeedback.hidden = false;
+                copyFeedback.textContent = `Revise el mensaje arriba y haga clic en "Abrir mi Correo con este Mensaje" para abrir la pestaña de su correo y enviarlo a ${CONTACT_CONFIG.email}.`;
+            }
 
-            // Envío adicional por AJAX si corre sobre http/https
-            if (window.location.protocol.startsWith('http')) {
-                try {
-                    await fetch(CONTACT_CONFIG.formSubmitAjaxUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(data.emailPayload)
-                    });
-                } catch (_) {
-                    // Respaldado por la pestaña POST abierta
-                }
+            if (outputPanel) {
+                outputPanel.hidden = false;
+                outputPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         });
     }
 
-    // Si el usuario presiona Enter dentro de un input del formulario, por defecto valida y abre WhatsApp
+    // Cuando el usuario hace clic en "Abrir mi Correo con este Mensaje"
+    if (btnOpenEmailTab) {
+        btnOpenEmailTab.addEventListener('click', () => {
+            if (statusPill) {
+                statusPill.textContent = 'CORREO ABIERTO EN OTRA PESTAÑA';
+                statusPill.style.backgroundColor = '#8D1A1A';
+            }
+            if (copyFeedback) {
+                copyFeedback.hidden = false;
+                copyFeedback.textContent = `¡Listo! Se abrió su correo en una nueva pestaña con el mensaje cargado para ${CONTACT_CONFIG.email}. Solo presione "Enviar" dentro de su correo.`;
+            }
+        });
+    }
+
+    // Evitar recargas si presionan Enter dentro de un campo
     if (quoteForm) {
         quoteForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            if (btnWhatsapp) {
-                btnWhatsapp.click();
+            if (btnPreviewEmail) {
+                btnPreviewEmail.click();
             }
         });
     }
@@ -305,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await navigator.clipboard.writeText(textToCopy);
                 if (copyFeedback) {
-                    copyFeedback.textContent = '¡Resumen copiado exitosamente al portapapeles!';
+                    copyFeedback.textContent = '¡Mensaje copiado exitosamente al portapapeles!';
                     copyFeedback.hidden = false;
                 }
             } catch (err) {
@@ -316,16 +281,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.execCommand('copy');
                 document.body.removeChild(tempArea);
                 if (copyFeedback) {
-                    copyFeedback.textContent = '¡Resumen copiado exitosamente al portapapeles!';
+                    copyFeedback.textContent = '¡Mensaje copiado exitosamente al portapapeles!';
                     copyFeedback.hidden = false;
                 }
             }
-        });
-    }
-
-    if (printBtn) {
-        printBtn.addEventListener('click', () => {
-            window.print();
         });
     }
 });
