@@ -3,11 +3,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Configuraciones de contacto corporativo y envío real de correo
     const CONTACT_CONFIG = {
-        email: 'eduardofelipe020800@gmail.com',
+        email: 'Pulmarconstruccionesca@gmail.com',
         whatsappNumber: '584120936783', // Código internacional +58 (Venezuela) para 04120936783
         displayPhone: '0412-0936783',
-        formSubmitAjaxUrl: 'https://formsubmit.co/ajax/eduardofelipe020800@gmail.com',
-        formSubmitTabUrl: 'https://formsubmit.co/eduardofelipe020800@gmail.com'
+        formSubmitAjaxUrl: 'https://formsubmit.co/ajax/Pulmarconstruccionesca@gmail.com',
+        formSubmitTabUrl: 'https://formsubmit.co/Pulmarconstruccionesca@gmail.com'
     };
 
     // 1. Año dinámico en el footer
