@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configuraciones de contacto corporativo y envío real de correo
     const CONTACT_CONFIG = {
         email: 'Pulmarconstruccionesca@gmail.com',
-        whatsappNumber: '584120936783', // Código internacional +58 (Venezuela) para 04120936783
-        displayPhone: '0412-0936783',
+        whatsappNumber: '584140492563', // Código internacional +58 (Venezuela) para 0414-0492563
+        displayPhone: '0414-0492563',
         formSubmitAjaxUrl: 'https://formsubmit.co/ajax/Pulmarconstruccionesca@gmail.com',
         formSubmitTabUrl: 'https://formsubmit.co/Pulmarconstruccionesca@gmail.com'
     };
