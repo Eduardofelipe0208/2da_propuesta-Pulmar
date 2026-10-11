@@ -684,16 +684,16 @@
                         </div>
                     </div>
 
-                    <!-- Columna Derecha: Formulario de Solicitud de Cotización (Envía a WhatsApp y Correo abriendo 2 pestañas) -->
+                    <!-- Archivo: index.html (Sección de la columna derecha del formulario) | Acción: REEMPLAZAR BLOQUE -->
+                    <!-- Columna Derecha: Formulario de Solicitud de Cotización con 2 botones independientes (WhatsApp y Correo) -->
                     <div class="contact-form-column">
                         <div class="quote-form-card">
                             <span class="form-card-eyebrow">SOLICITUD DE COTIZACIÓN B2B</span>
                             <h3 class="form-card-title">Coordine su Servicio de Transporte o Alquiler</h3>
                             <p class="form-card-desc">
-                                Al enviar el formulario se abrirán automáticamente <strong>2 pestañas</strong>: una con su mensaje listo en <strong>WhatsApp (0414-0492563)</strong> y otra enviando su solicitud al correo <strong>Pulmarconstruccionesca@gmail.com</strong>.
+                                Complete los datos de su requerimiento y elija el canal de su preferencia: envíe su mensaje directo a <strong>WhatsApp (0414-0492563)</strong> o remita su solicitud formal al correo <strong>Pulmarconstruccionesca@gmail.com</strong>.
                             </p>
 
-                            <!-- El formulario utiliza target="_blank" hacia el servicio de correo para que el navegador permita abrir la 2da pestaña nativa sin bloqueo de popups -->
                             <form id="quote-builder-form" class="quote-form" action="https://formsubmit.co/Pulmarconstruccionesca@gmail.com" method="POST" target="_blank" novalidate>
                                 <!-- Campos de configuración para recepción limpia en el correo Pulmarconstruccionesca@gmail.com -->
                                 <input type="hidden" name="_subject" id="hidden-email-subject" value="Nueva Solicitud de Cotización - Pulmar Construcciones, C.A.">
@@ -756,27 +756,32 @@
                                     Por favor complete todos los campos obligatorios marcados con (*) antes de enviar.
                                 </p>
 
-                                <div class="form-submit-row">
-                                    <button type="submit" class="btn-submit-quote">
-                                        <span>Enviar a WhatsApp y Correo</span>
+                                <!-- 2 Botones Independientes: Uno para WhatsApp y otro para Correo -->
+                                <div class="form-submit-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.85rem;">
+                                    <button type="button" id="btn-submit-whatsapp" class="btn-submit-quote" style="background-color: #8D1A1A;">
+                                        <span>Enviar por WhatsApp</span>
                                         <span aria-hidden="true">&rarr;</span>
+                                    </button>
+                                    <button type="button" id="btn-submit-email" class="btn-submit-quote" style="background-color: #163F6B;">
+                                        <span>Enviar por Correo</span>
+                                        <span aria-hidden="true">&#9993;</span>
                                     </button>
                                 </div>
                             </form>
 
-                            <!-- Panel de confirmación y botones de acceso directo a las 2 pestañas -->
+                            <!-- Panel de confirmación y botones de acceso directo -->
                             <div id="quote-output-panel" class="quote-output-panel" hidden aria-live="polite">
                                 <div class="output-top-bar">
                                     <strong>SOLICITUD PREPARADA</strong>
-                                    <span class="output-status-pill">2 PESTAÑAS ACTIVAS</span>
+                                    <span class="output-status-pill" id="output-status-pill">LISTO PARA ENVÍO</span>
                                 </div>
                                 <pre id="quote-summary-text" class="quote-summary-box"></pre>
                                 <div class="output-buttons-grid">
-                                    <a id="direct-wa-link" href="https://wa.me/584120936783" target="_blank" rel="noopener noreferrer" class="btn-panel-solid">
-                                        Abrir Pestaña WhatsApp
+                                    <a id="direct-wa-link" href="https://wa.me/584140492563" target="_blank" rel="noopener noreferrer" class="btn-panel-solid">
+                                        Abrir WhatsApp
                                     </a>
                                     <a id="direct-gmail-link" href="mailto:Pulmarconstruccionesca@gmail.com" target="_blank" rel="noopener noreferrer" class="btn-panel-outline">
-                                        Abrir Pestaña Gmail Web
+                                        Abrir en Gmail Web
                                     </a>
                                     <button type="button" id="btn-copy-quote" class="btn-panel-outline">
                                         Copiar Texto
